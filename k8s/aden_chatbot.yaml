@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: aden chatbot
+  name: aden-chatbot
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  namespace: aden chatbot
-  name: aden chatbot
+  namespace: aden-chatbot
+  name: aden-chatbot
 type: Opaque
 data:
   OPENAI_API_KEY: <base64 encoded key>
@@ -15,23 +15,23 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: aden chatbot
-  name: aden chatbot
+  namespace: aden-chatbot
+  name: aden-chatbot
   labels:
-    app: aden chatbot
+    app: aden-chatbot
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: aden chatbot
+      app: aden-chatbot
   template:
     metadata:
       labels:
         app: aden chatbot
     spec:
       containers:
-        - name: aden chatbot
-          image: <docker user>/chatbot-ui:latest
+        - name: aden-chatbot
+          image: <docker user>/aden-chatbot:latest
           resources: {}
           ports:
             - containerPort: 3000
@@ -39,16 +39,16 @@ spec:
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: aden chatbot
+                  name: aden-chatbot
                   key: OPENAI_API_KEY
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  namespace: aden chatbot
-  name: aden chatbot
+  namespace: aden-chatbot
+  name: aden-chatbot
   labels:
-    app: aden chatbot
+    app: aden-chatbot
 spec:
   ports:
     - name: http
@@ -56,5 +56,5 @@ spec:
       port: 80
       targetPort: 3000
   selector:
-    app: aden chatbot
+    app: aden-chatbot
   type: ClusterIP
