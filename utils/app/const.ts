@@ -18,4 +18,4 @@ export const OPENAI_ORGANIZATION =
   process.env.OPENAI_ORGANIZATION || '';
 
 export const AZURE_DEPLOYMENT_ID =
-  process.env.AZURE_DEPLOYMENT_ID || '74826092-6d27-4dc1-918e-f7f93771419f';
+  process.env.AZURE_DEPLOYMENT_ID || '';
